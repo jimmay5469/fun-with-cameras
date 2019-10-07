@@ -2,13 +2,16 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "clean": "npx lerna clean",
+    "dedupe": "lernaupdate --dedupe",
     "demos": "lerna run --stream --scope demos dev",
-    "clean": "npx lerna clean"
+    "lernaupdate": "lernaupdate"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^3.16.4"
+    "lerna": "^3.16.4",
+    "lerna-update-wizard": "^0.16.0"
   }
 }
