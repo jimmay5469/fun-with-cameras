@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "demos": "lerna run --stream --scope demos dev",
     "clean": "npx lerna clean"
   },
   "workspaces": [
