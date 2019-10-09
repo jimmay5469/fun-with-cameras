@@ -8,13 +8,7 @@ const Viewfinder = ({ src }) => {
     video.current.play()
   }, [src])
 
-  return (
-    <video
-      ref={video}
-      playsInline
-      style={{ backgroundColor: 'black' }}
-    />
-  )
+  return <video ref={video} playsInline style={{ backgroundColor: 'black' }} />
 }
 
 export default Viewfinder

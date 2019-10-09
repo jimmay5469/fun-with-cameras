@@ -12,15 +12,17 @@ const Camera = ({ power, body }) => {
     }
     if (!power) return
 
-    navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: 'environment'
-      },
-      audio: false
-    }).then(setStream)
+    navigator.mediaDevices
+      .getUserMedia({
+        video: {
+          facingMode: 'environment'
+        },
+        audio: false
+      })
+      .then(setStream)
   }, [power])
 
-  return body({stream})
+  return body({ stream })
 }
 
 export default Camera

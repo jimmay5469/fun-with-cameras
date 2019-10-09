@@ -6,9 +6,11 @@ const ViewfinderPage = () => {
   return (
     <Camera
       power={power}
-      body={({stream}) => (
+      body={({ stream }) => (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <button onClick={() => setPower(!power)}>Power: {power ? 'ON' : 'OFF'}</button>
+          <button onClick={() => setPower(!power)}>
+            Power: {power ? 'ON' : 'OFF'}
+          </button>
           <Viewfinder src={stream} />
         </div>
       )}

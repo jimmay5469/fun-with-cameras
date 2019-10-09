@@ -5,13 +5,20 @@
     "clean": "npx lerna clean",
     "dedupe": "lernaupdate --dedupe",
     "dev": "lerna run --parallel dev",
-    "lernaupdate": "lernaupdate"
+    "lernaupdate": "lernaupdate",
+    "lint": "eslint '**/*.js'",
+    "lintfix": "eslint --fix '**/*.js'"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "lerna": "^3.16.4",
-    "lerna-update-wizard": "^0.16.0"
+    "lerna-update-wizard": "^0.16.0",
+    "prettier": "^1.18.2"
   }
 }
