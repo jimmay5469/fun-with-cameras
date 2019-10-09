@@ -1,20 +1,15 @@
 import React, { useRef, useEffect } from 'react'
 
-const Viewfinder = () => {
+const Viewfinder = ({ src }) => {
   const video = useRef(null)
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
-      .then((stream) => {
-        video.current.srcObject = stream
-        video.current.play()
-      })
-  }, [])
+    video.current.srcObject = src
+    video.current.play()
+  }, [src])
 
   return (
-    <div>
-      <video playsInline ref={video} />
-    </div>
+    <video playsInline ref={video} />
   )
 }
 

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Viewfinder } from '@fun-with-cameras/camera-bag'
+import { Camera, Viewfinder } from '@fun-with-cameras/camera-bag'
 
 const ViewfinderPage = () => (
-  <div>
-    <Viewfinder />
-  </div>
+  <Camera body={({stream}) => (
+    <Viewfinder src={stream} />
+  )}/>
 )
 
 export default ViewfinderPage
