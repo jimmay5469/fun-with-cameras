@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "npx lerna clean",
     "dedupe": "lernaupdate --dedupe",
-    "demos": "lerna run --stream --scope demos dev",
+    "dev": "lerna run --parallel dev",
     "lernaupdate": "lernaupdate"
   },
   "workspaces": [

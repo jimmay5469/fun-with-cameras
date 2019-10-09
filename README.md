@@ -12,5 +12,5 @@
 
 ## Development
 
-* Run: `yarn run demos`
+* Run: `yarn run dev`
 * Visit: [localhost:3000](http://localhost:3000)

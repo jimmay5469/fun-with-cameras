@@ -1,5 +1,5 @@
 import React from 'react'
-import Viewfinder from '../components/Viewfinder'
+import { Viewfinder } from '@fun-with-cameras/camera-bag'
 
 const ViewfinderPage = () => (
   <div>
