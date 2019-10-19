@@ -1,17 +1,29 @@
 import React, { useState } from 'react'
-import { Lens, Viewfinder } from '@fun-with-cameras/camera-bag'
+import { Lens, Shutter, Viewfinder } from '@fun-with-cameras/camera-bag'
 
 const ViewfinderPage = () => {
-  const [lensCap, setLensCap] = useState(true)
+  const [lensCapOn, setLensCapOn] = useState(true)
   const [stream, setStream] = useState()
+  const [viewfinderStream, setViewfinderStream] = useState()
+  const [filmStream, setFilmStream] = useState()
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <button onClick={() => setLensCap(!lensCap)}>
-        Lens Cap: {lensCap ? 'ON' : 'OFF'}
+      <button onClick={() => setLensCapOn(!lensCapOn)}>
+        Lens Cap: {lensCapOn ? 'ON' : 'OFF'}
       </button>
-      {!lensCap && <Lens onStreamChange={setStream} />}
-      <Viewfinder stream={stream} />
+      {!lensCapOn && <Lens onStreamChange={setStream} />}
+      <Viewfinder stream={viewfinderStream} />
+      <Shutter
+        stream={stream}
+        speed={1 / 4}
+        onStreamsChange={streams => {
+          setViewfinderStream(streams.viewfinder)
+          setFilmStream(streams.film)
+        }}
+      >
+        Shutter Release
+      </Shutter>
     </div>
   )
 }
