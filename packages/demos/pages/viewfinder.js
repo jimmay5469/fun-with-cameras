@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
-import { Camera, Viewfinder } from '@fun-with-cameras/camera-bag'
+import { Lens, Viewfinder } from '@fun-with-cameras/camera-bag'
 
 const ViewfinderPage = () => {
-  const [power, setPower] = useState(false)
+  const [lensCap, setLensCap] = useState(true)
+  const [stream, setStream] = useState()
+
   return (
-    <Camera
-      power={power}
-      body={({ stream }) => (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <button onClick={() => setPower(!power)}>
-            Power: {power ? 'ON' : 'OFF'}
-          </button>
-          <Viewfinder src={stream} />
-        </div>
-      )}
-    />
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <button onClick={() => setLensCap(!lensCap)}>
+        Lens Cap: {lensCap ? 'ON' : 'OFF'}
+      </button>
+      {!lensCap && <Lens onStreamChange={setStream} />}
+      <Viewfinder stream={stream} />
+    </div>
   )
 }
 

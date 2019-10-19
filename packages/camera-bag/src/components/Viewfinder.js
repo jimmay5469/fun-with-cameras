@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from 'react'
 
-const Viewfinder = ({ src }) => {
+const Viewfinder = ({ stream }) => {
   const video = useRef(null)
 
   useEffect(() => {
-    video.current.srcObject = src
+    video.current.srcObject = stream
     video.current.play()
-  }, [src])
+  }, [stream])
 
   return <video ref={video} playsInline style={{ backgroundColor: 'black' }} />
 }
