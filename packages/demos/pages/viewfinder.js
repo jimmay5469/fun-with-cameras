@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Lens, Shutter, Viewfinder } from '@fun-with-cameras/camera-bag'
+import { Lens, Shutter, Viewfinder, Film } from '@fun-with-cameras/camera-bag'
 
 const ViewfinderPage = () => {
   const [lensCapOn, setLensCapOn] = useState(true)
@@ -24,6 +24,7 @@ const ViewfinderPage = () => {
       >
         Shutter Release
       </Shutter>
+      <Film stream={filmStream} />
     </div>
   )
 }
