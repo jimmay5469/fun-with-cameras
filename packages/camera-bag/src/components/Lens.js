@@ -1,35 +1,60 @@
 import React, { useEffect, useState } from 'react'
 
-const Lens = ({ onStreamChange }) => {
-  const [stream, _setStream] = useState()
+const Lens = ({ lensSelector, onStreamChange }) => {
+  const [lenses, setLenses] = useState([])
+  const [selectedLens, setSelectedLens] = useState()
+
+  const setStream = stream => {
+    if (window.stream) {
+      window.stream.getAudioTracks().forEach(track => track.stop())
+      window.stream.getVideoTracks().forEach(track => track.stop())
+    }
+    window.stream = stream
+    onStreamChange(stream)
+  }
 
   useEffect(() => {
-    const setStream = stream => {
-      _setStream(stream)
-      onStreamChange(stream)
-    }
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then(stream => {
+        window.stream = stream
+        return navigator.mediaDevices.enumerateDevices()
+      })
+      .then(devices =>
+        devices
+          .filter(({ kind }) => kind === 'videoinput')
+          .map(device => ({ id: device.deviceId, name: device.label }))
+      )
+      .then(lenses => {
+        setLenses(lenses)
+        setSelectedLens(lenses[0])
+      })
 
-    if (!stream) {
-      navigator.mediaDevices
-        .getUserMedia({
-          video: {
-            facingMode: 'environment'
-          },
-          audio: false
-        })
-        .then(setStream)
-    }
+    return () => setStream()
+  }, [])
 
-    return () => {
-      if (stream) {
-        stream.getAudioTracks().forEach(track => track.stop())
-        stream.getVideoTracks().forEach(track => track.stop())
-        setStream()
-      }
-    }
-  }, [stream])
+  useEffect(() => {
+    if (!selectedLens) return
 
-  return null
+    navigator.mediaDevices
+      .getUserMedia({
+        video: {
+          deviceId: {
+            exact: selectedLens.id
+          }
+        },
+        audio: false
+      })
+      .then(setStream)
+  }, [selectedLens])
+
+  return lensSelector
+    ? lensSelector({
+        lenses,
+        selectedLens,
+        onSelectLens: setSelectedLens
+      })
+    : null
 }
 
 export default Lens

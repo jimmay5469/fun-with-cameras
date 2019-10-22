@@ -12,7 +12,22 @@ const ViewfinderPage = () => {
       <button onClick={() => setLensCapOn(!lensCapOn)}>
         Lens Cap: {lensCapOn ? 'ON' : 'OFF'}
       </button>
-      {!lensCapOn && <Lens onStreamChange={setStream} />}
+      {!lensCapOn && (
+        <Lens
+          onStreamChange={setStream}
+          lensSelector={({ lenses, selectedLens, onSelectLens }) =>
+            lenses.map(lens => (
+              <button
+                key={lens.id}
+                disabled={lens === selectedLens}
+                onClick={() => onSelectLens(lens)}
+              >
+                {lens.name}
+              </button>
+            ))
+          }
+        />
+      )}
       <Viewfinder stream={viewfinderStream} />
       <Shutter
         stream={stream}
