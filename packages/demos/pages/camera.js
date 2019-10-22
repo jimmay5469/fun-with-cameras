@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Lens, Shutter, Viewfinder, Film } from '@fun-with-cameras/camera-bag'
+import Head from 'next/head'
+import Nav from '../components/nav'
 
-const ViewfinderPage = () => {
+const Camera = () => {
   const [lensCapOn, setLensCapOn] = useState(true)
   const [stream, setStream] = useState()
   const [viewfinderStream, setViewfinderStream] = useState()
@@ -44,4 +46,19 @@ const ViewfinderPage = () => {
   )
 }
 
-export default ViewfinderPage
+const CameraPage = () => (
+  <div>
+    <Head>
+      <title>Camera</title>
+      <link rel='icon' href='/static/favicon.ico' />
+    </Head>
+
+    <Nav />
+
+    <h1>Camera</h1>
+
+    <Camera />
+  </div>
+)
+
+export default CameraPage

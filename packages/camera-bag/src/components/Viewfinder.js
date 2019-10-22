@@ -5,7 +5,8 @@ const Viewfinder = ({ stream }) => {
 
   useEffect(() => {
     video.current.srcObject = stream
-    video.current.play()
+
+    if (stream) video.current.play()
   }, [stream])
 
   return <video ref={video} playsInline style={{ backgroundColor: 'black' }} />
