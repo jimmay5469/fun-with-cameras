@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Lens, Shutter, Viewfinder, Film } from '@fun-with-cameras/camera-bag'
 import Head from 'next/head'
 import Nav from '../components/nav'
@@ -10,7 +10,7 @@ const Camera = () => {
   const [filmStream, setFilmStream] = useState()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className='camera'>
       <button onClick={() => setLensCapOn(!lensCapOn)}>
         Lens Cap: {lensCapOn ? 'ON' : 'OFF'}
       </button>
@@ -30,7 +30,7 @@ const Camera = () => {
           }
         />
       )}
-      <Viewfinder stream={viewfinderStream} />
+      <Viewfinder stream={viewfinderStream} className='viewfinder' />
       <Shutter
         stream={stream}
         speed={1 / 4}
@@ -41,7 +41,43 @@ const Camera = () => {
       >
         Shutter Release
       </Shutter>
-      <Film stream={filmStream} />
+      <Film
+        stream={filmStream}
+        filmstrip={({ images }) => {
+          const filmstrip = useRef(null)
+
+          useEffect(() => filmstrip.current.scroll(0, 0), [images])
+
+          return (
+            <div ref={filmstrip} className='filmstrip'>
+              {images.map((image, i) => (
+                <div key={i}>
+                  <img src={image} className='filmstrip-frame' />
+                </div>
+              ))}
+            </div>
+          )
+        }}
+      />
+
+      <style jsx>{`
+        .camera {
+          display: flex;
+          flex-direction: column;
+        }
+        .camera :global(.viewfinder) {
+          background-color: black;
+        }
+        .filmstrip {
+          display: flex;
+          width: 100%;
+          overflow: auto;
+          background-color: black;
+        }
+        .filmstrip-frame {
+          display: block;
+        }
+      `}</style>
     </div>
   )
 }

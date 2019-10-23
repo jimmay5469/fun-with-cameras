@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
-const Film = ({ stream }) => {
+const Film = ({ stream, filmstrip }) => {
   const [images, setImages] = useState([])
-  const filmStrip = useRef(null)
 
   const addImage = blob => setImages([URL.createObjectURL(blob), ...images])
 
@@ -22,25 +21,7 @@ const Film = ({ stream }) => {
     imageCapture.takePhoto().then(addImage)
   }, [stream])
 
-  useEffect(() => filmStrip.current.scroll(0, 0), [images])
-
-  return (
-    <div
-      ref={filmStrip}
-      style={{
-        display: 'flex',
-        width: '100%',
-        overflow: 'auto',
-        backgroundColor: 'black'
-      }}
-    >
-      {images.map((image, i) => (
-        <div key={i}>
-          <img src={image} style={{ display: 'block' }} />
-        </div>
-      ))}
-    </div>
-  )
+  return filmstrip ? filmstrip({ images }) : null
 }
 
 export default Film

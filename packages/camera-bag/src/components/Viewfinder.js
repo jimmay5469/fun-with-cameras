@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 
-const Viewfinder = ({ stream }) => {
+const Viewfinder = ({ stream, className }) => {
   const video = useRef(null)
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const Viewfinder = ({ stream }) => {
     if (stream) video.current.play()
   }, [stream])
 
-  return <video ref={video} playsInline style={{ backgroundColor: 'black' }} />
+  return <video ref={video} playsInline className={className} />
 }
 
 export default Viewfinder

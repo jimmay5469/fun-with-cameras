@@ -4,6 +4,7 @@ const Shutter = ({
   speed = 0,
   stream,
   onStreamsChange = () => {},
+  className,
   children
 }) => {
   useEffect(() => onStreamsChange({ viewfinder: stream, film: null }), [stream])
@@ -16,7 +17,11 @@ const Shutter = ({
     }, speed * 1000)
   }
 
-  return <button onClick={release}>{children}</button>
+  return (
+    <button onClick={release} className={className}>
+      {children}
+    </button>
+  )
 }
 
 export default Shutter
