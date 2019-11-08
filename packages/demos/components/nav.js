@@ -3,7 +3,8 @@ import Link from 'next/link'
 
 const links = [
   { href: '/camera', label: 'Camera' },
-  { href: '/photo-booth', label: 'Photo Booth' }
+  { href: '/photo-booth', label: 'Photo Booth' },
+  { href: '/face-detection', label: 'Face Detection' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`
   return link
