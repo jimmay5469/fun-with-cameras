@@ -1,28 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 
-const links = [
-  { href: '/camera', label: 'Camera' },
-  { href: '/photo-booth', label: 'Photo Booth' },
-  { href: '/face-detection', label: 'Face Detection' }
-].map(link => {
-  link.key = `nav-link-${link.href}-${link.label}`
-  return link
-})
-
 const Nav = () => (
   <nav>
     <ul>
       <li>
         <Link href='/'>
-          <a>Home</a>
+          <a>Camera Stuff with Jimmy</a>
         </Link>
       </li>
-      {links.map(({ key, href, label }) => (
-        <li key={key}>
-          <a href={href}>{label}</a>
-        </li>
-      ))}
     </ul>
 
     <style jsx>{`
@@ -30,6 +16,12 @@ const Nav = () => (
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
           Helvetica, sans-serif;
+        color: #333;
+      }
+      :global(a) {
+        color: #067df7;
+        text-decoration: none;
+        font-size: 13px;
       }
       nav {
         text-align: center;
@@ -44,11 +36,6 @@ const Nav = () => (
       li {
         display: flex;
         padding: 6px 8px;
-      }
-      a {
-        color: #067df7;
-        text-decoration: none;
-        font-size: 13px;
       }
     `}</style>
   </nav>

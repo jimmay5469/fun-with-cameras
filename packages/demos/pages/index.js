@@ -12,26 +12,23 @@ const Home = () => (
     <Nav />
 
     <div className='hero'>
-      <h1 className='title'>Welcome to Next.js!</h1>
+      <h1 className='title'>Camera Stuff with Jimmy</h1>
       <p className='description'>
-        To get started, edit <code>pages/index.js</code> and save to reload.
+        Playing with <code>WebRTC</code>
       </p>
 
       <div className='row'>
-        <a href='https://nextjs.org/docs' className='card'>
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
+        <a href='/camera' className='card'>
+          <h3>Camera &rarr;</h3>
+          <p>A full camera.</p>
         </a>
-        <a href='https://nextjs.org/learn' className='card'>
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
+        <a href='/photo-booth' className='card'>
+          <h3>Photo Booth &rarr;</h3>
+          <p>A basic photo booth.</p>
         </a>
-        <a
-          href='https://github.com/zeit/next.js/tree/master/examples'
-          className='card'
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
+        <a href='/face-detection' className='card'>
+          <h3>Face Detection &rarr;</h3>
+          <p>Exploring facial recognition.</p>
         </a>
       </div>
     </div>
@@ -39,7 +36,6 @@ const Home = () => (
     <style jsx>{`
       .hero {
         width: 100%;
-        color: #333;
       }
       .title {
         margin: 0;
@@ -64,7 +60,6 @@ const Home = () => (
         width: 220px;
         text-align: left;
         text-decoration: none;
-        color: #434343;
         border: 1px solid #9b9b9b;
       }
       .card:hover {
@@ -72,7 +67,6 @@ const Home = () => (
       }
       .card h3 {
         margin: 0;
-        color: #067df7;
         font-size: 18px;
       }
       .card p {

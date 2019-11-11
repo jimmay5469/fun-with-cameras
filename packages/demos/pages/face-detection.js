@@ -44,12 +44,19 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
   }, [stream])
 
   return (
-    <div className='container'>
-      <video ref={video} playsInline className={className} />
-      <canvas ref={faces} className='faces' />
+    <div className={`container ${className}`}>
+      <div className='video'>
+        <video ref={video} playsInline />
+        <canvas ref={faces} className='faces' />
+      </div>
 
       <style jsx>{`
         .container {
+          display: flex;
+          justify-content: center;
+        }
+        .video {
+          display: flex;
           position: relative;
         }
         .faces {
