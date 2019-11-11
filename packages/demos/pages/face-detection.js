@@ -21,16 +21,18 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
             scoreThreshold: 0.5
           })
         )
-        const dimensions = faceapi.matchDimensions(
-          faces.current,
-          video.current,
-          true
-        )
-        if (dimensions.height && dimensions.width) {
-          faceapi.draw.drawDetections(
+        if (faces.current) {
+          const dimensions = faceapi.matchDimensions(
             faces.current,
-            faceapi.resizeResults(result, dimensions)
+            video.current,
+            true
           )
+          if (dimensions.height && dimensions.width) {
+            faceapi.draw.drawDetections(
+              faces.current,
+              faceapi.resizeResults(result, dimensions)
+            )
+          }
         }
       }
 
@@ -40,14 +42,13 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
 
     video.current.autoplay = true
     video.current.srcObject = stream
-    // video.current.onloadedmetadata = detectFaces
   }, [stream])
 
   return (
     <div className={`container ${className}`}>
       <div className='video'>
         <video ref={video} playsInline />
-        <canvas ref={faces} className='faces' />
+        {stream && <canvas ref={faces} className='faces' />}
       </div>
 
       <style jsx>{`
