@@ -65,6 +65,31 @@ const Home = () => (
           <p>Exploring facial recognition.</p>
         </a>
       </div>
+
+      <div className='row'>
+        <div>
+          <h3>References:</h3>
+          <ul>
+            <li>
+              <a href='https://images.app.goo.gl/1t6oMVRqtHYyDwT26'>
+                SLR Camera Diagram
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Bonus:</h3>
+          <ul>
+            <li>Project Setup (Yarn Workspaces, Babel npm Module)</li>
+            <li>
+              <a href='https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams'>
+                <code>URLSearchParams</code>
+              </a>{' '}
+              api for query parameters
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <style jsx>{`
