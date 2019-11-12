@@ -87,6 +87,12 @@ const Home = () => (
               </a>{' '}
               api for query parameters
             </li>
+            <li>
+              <a href='https://github.com/jimmay5469/dotfiles/blob/master/.shellrc.symlink'>
+                <code>CDPATH</code>
+              </a>{' '}
+              and symlinks for easier terminal navigation
+            </li>
           </ul>
         </div>
       </div>
