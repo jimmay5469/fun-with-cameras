@@ -23,6 +23,9 @@ const Nav = () => (
         text-decoration: none;
         font-size: 13px;
       }
+      :global(.viewfinder) {
+        background-color: black;
+      }
       nav {
         text-align: center;
       }
