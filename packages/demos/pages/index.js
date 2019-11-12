@@ -18,6 +18,20 @@ const Home = () => (
       </p>
 
       <div className='row'>
+        <a href='/hello-world' className='card'>
+          <h3>Hello World &rarr;</h3>
+          <p>
+            Getting started with <code>WebRTC</code>.
+          </p>
+        </a>
+        <a href='/cleanup' className='card'>
+          <h3>Cleanup &rarr;</h3>
+          <p>
+            Stopping the <code>mediaDevices</code>.
+          </p>
+        </a>
+      </div>
+      <div className='row'>
         <a href='/camera' className='card'>
           <h3>Camera &rarr;</h3>
           <p>A full camera.</p>
