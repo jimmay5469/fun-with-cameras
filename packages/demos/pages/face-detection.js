@@ -71,30 +71,24 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
 }
 
 const Camera = () => {
-  const [lensCapOn, setLensCapOn] = useState(true)
   const [stream, setStream] = useState()
 
   return (
     <div className='camera'>
-      <button onClick={() => setLensCapOn(!lensCapOn)}>
-        Lens Cap: {lensCapOn ? 'ON' : 'OFF'}
-      </button>
-      {!lensCapOn && (
-        <Lens
-          onStreamChange={setStream}
-          lensSelector={({ lenses, selectedLens, onSelectLens }) =>
-            lenses.map(lens => (
-              <button
-                key={lens.id}
-                disabled={lens === selectedLens}
-                onClick={() => onSelectLens(lens)}
-              >
-                {lens.name}
-              </button>
-            ))
-          }
-        />
-      )}
+      <Lens
+        onStreamChange={setStream}
+        lensSelector={({ lenses, selectedLens, onSelectLens }) =>
+          lenses.map(lens => (
+            <button
+              key={lens.id}
+              disabled={lens === selectedLens}
+              onClick={() => onSelectLens(lens)}
+            >
+              {lens.name}
+            </button>
+          ))
+        }
+      />
       <FaceDetectingViewfinder stream={stream} className='viewfinder' />
 
       <style jsx>{`
