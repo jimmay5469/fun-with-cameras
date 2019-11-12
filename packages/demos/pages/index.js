@@ -41,6 +41,14 @@ const Home = () => (
           <h3>Lens &rarr;</h3>
           <p>Even more composable.</p>
         </a>
+        <a href='/shutter' className='card'>
+          <h3>Shutter &rarr;</h3>
+          <p>Direct the stream.</p>
+        </a>
+        <a href='/film' className='card'>
+          <h3>Film &rarr;</h3>
+          <p>Recording the stream.</p>
+        </a>
       </div>
 
       <div className='row'>

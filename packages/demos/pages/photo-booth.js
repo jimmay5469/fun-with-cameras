@@ -24,7 +24,7 @@ const PhotoBooth = () => {
   }
 
   return (
-    <div className='camera'>
+    <div className='photo-booth'>
       {!done && (
         <>
           <Lens
@@ -71,11 +71,11 @@ const PhotoBooth = () => {
       />
 
       <style jsx>{`
-        .camera {
+        .photo-booth {
           display: flex;
           flex-direction: column;
         }
-        .camera :global(.viewfinder) {
+        .photo-booth :global(.viewfinder) {
           background-color: black;
         }
         .filmstrip {
