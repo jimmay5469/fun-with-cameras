@@ -30,7 +30,19 @@ const Home = () => (
             Stopping the <code>mediaDevices</code>.
           </p>
         </a>
+        <a href='/viewfinder' className='card'>
+          <h3>Viewfinder &rarr;</h3>
+          <p>Making things composable.</p>
+        </a>
       </div>
+
+      <div className='row'>
+        <a href='/lens' className='card'>
+          <h3>Lens &rarr;</h3>
+          <p>Even more composable.</p>
+        </a>
+      </div>
+
       <div className='row'>
         <a href='/camera' className='card'>
           <h3>Camera &rarr;</h3>
