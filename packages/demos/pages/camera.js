@@ -2,7 +2,18 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Lens, Shutter, Viewfinder, Film } from '@fun-with-cameras/camera-bag'
 import Head from 'next/head'
 import Nav from '../components/nav'
+import LiveCode from '../components/live-code'
 
+const scope = {
+  useState,
+  useRef,
+  useEffect,
+  Lens,
+  Shutter,
+  Viewfinder,
+  Film
+}
+const code = `
 const Camera = () => {
   const [lensCapOn, setLensCapOn] = useState(true)
   const [stream, setStream] = useState()
@@ -60,7 +71,7 @@ const Camera = () => {
         }}
       />
 
-      <style jsx>{`
+      <style jsx>{\`
         .camera {
           display: flex;
           flex-direction: column;
@@ -77,10 +88,13 @@ const Camera = () => {
         .filmstrip-frame {
           display: block;
         }
-      `}</style>
+      \`}</style>
     </div>
   )
 }
+
+render(<Camera />)
+`
 
 const CameraPage = () => (
   <div>
@@ -93,7 +107,7 @@ const CameraPage = () => (
 
     <h1>Camera</h1>
 
-    <Camera />
+    <LiveCode scope={scope} code={code} />
   </div>
 )
 

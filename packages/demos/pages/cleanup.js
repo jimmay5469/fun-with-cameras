@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Nav from '../components/nav'
+import LiveCode from '../components/live-code'
 
+const scope = { useState, useRef, useEffect }
+const code = `
 const HelloWorld = () => {
   const [stream, setStream] = useState()
   const video = useRef(null)
@@ -25,6 +28,9 @@ const HelloWorld = () => {
   return <video ref={video} playsInline />
 }
 
+render(<HelloWorld />)
+`
+
 const CleanupPage = () => (
   <div>
     <Head>
@@ -36,7 +42,7 @@ const CleanupPage = () => (
 
     <h1>Cleanup</h1>
 
-    <HelloWorld />
+    <LiveCode scope={scope} code={code} />
   </div>
 )
 

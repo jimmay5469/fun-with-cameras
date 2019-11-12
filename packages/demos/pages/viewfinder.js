@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Nav from '../components/nav'
+import LiveCode from '../components/live-code'
 
+const scope = { useState, useRef, useEffect }
+const code = `
 const Viewfinder = ({ stream }) => {
   const video = useRef(null)
 
@@ -36,6 +39,9 @@ const HelloWorld = () => {
   return <Viewfinder stream={stream} />
 }
 
+render(<HelloWorld />)
+`
+
 const ViewfinderPage = () => (
   <div>
     <Head>
@@ -47,7 +53,7 @@ const ViewfinderPage = () => (
 
     <h1>Viewfinder</h1>
 
-    <HelloWorld />
+    <LiveCode scope={scope} code={code} />
   </div>
 )
 

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Viewfinder } from '@fun-with-cameras/camera-bag'
 import Head from 'next/head'
 import Nav from '../components/nav'
-import { Viewfinder } from '@fun-with-cameras/camera-bag'
+import LiveCode from '../components/live-code'
 
+const scope = { useState, useEffect, Viewfinder }
+const code = `
 const Lens = ({ onStreamChange }) => {
   useEffect(() => {
     navigator.mediaDevices
@@ -35,6 +38,9 @@ const HelloWorld = () => {
   )
 }
 
+render(<HelloWorld />)
+`
+
 const ViewfinderPage = () => (
   <div>
     <Head>
@@ -46,7 +52,7 @@ const ViewfinderPage = () => (
 
     <h1>Lens</h1>
 
-    <HelloWorld />
+    <LiveCode scope={scope} code={code} />
   </div>
 )
 

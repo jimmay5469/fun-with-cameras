@@ -2,7 +2,15 @@ import React, { useState } from 'react'
 import { Lens, Viewfinder, Film } from '@fun-with-cameras/camera-bag'
 import Head from 'next/head'
 import Nav from '../components/nav'
+import LiveCode from '../components/live-code'
 
+const scope = {
+  useState,
+  Lens,
+  Viewfinder,
+  Film
+}
+const code = `
 const PhotoBooth = () => {
   const [stream, setStream] = useState()
   const [filmStream, setFilmStream] = useState()
@@ -70,7 +78,7 @@ const PhotoBooth = () => {
         }
       />
 
-      <style jsx>{`
+      <style jsx>{\`
         .photo-booth {
           display: flex;
           flex-direction: column;
@@ -85,10 +93,13 @@ const PhotoBooth = () => {
           width: 100%;
           height: 100%;
         }
-      `}</style>
+      \`}</style>
     </div>
   )
 }
+
+render(<PhotoBooth />)
+`
 
 const PhotoBoothPage = () => (
   <div>
@@ -101,7 +112,7 @@ const PhotoBoothPage = () => (
 
     <h1>Photo Booth</h1>
 
-    <PhotoBooth />
+    <LiveCode scope={scope} code={code} />
   </div>
 )
 

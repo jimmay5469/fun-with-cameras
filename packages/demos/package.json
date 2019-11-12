@@ -11,6 +11,7 @@
     "@fun-with-cameras/camera-bag": "0.1.0",
     "face-api.js": "^0.21.0",
     "image-capture": "^0.4.0",
-    "next": "9.0.8"
+    "next": "9.0.8",
+    "react-live": "^2.2.1"
   }
 }

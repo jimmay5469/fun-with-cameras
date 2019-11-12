@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import { Lens, Shutter, Viewfinder } from '@fun-with-cameras/camera-bag'
 import Head from 'next/head'
 import Nav from '../components/nav'
-import { Lens, Shutter, Viewfinder } from '@fun-with-cameras/camera-bag'
+import LiveCode from '../components/live-code'
 
+const scope = {
+  useState,
+  useEffect,
+  Lens,
+  Shutter,
+  Viewfinder,
+  require: () => {}
+}
+const code = `
 const Film = ({ stream, filmstrip }) => {
   const [images, setImages] = useState([])
 
@@ -59,7 +69,7 @@ const Camera = () => {
         )}
       />
 
-      <style jsx>{`
+      <style jsx>{\`
         .camera {
           display: flex;
           flex-direction: column;
@@ -76,24 +86,35 @@ const Camera = () => {
         .filmstrip-frame {
           display: block;
         }
-      `}</style>
+      \`}</style>
     </div>
   )
 }
 
-const ViewfinderPage = () => (
-  <div>
-    <Head>
-      <title>Film</title>
-      <link rel='icon' href='/static/favicon.ico' />
-    </Head>
+render(<Camera />)
+`
 
-    <Nav />
+const ViewfinderPage = () => {
+  useEffect(() => {
+    // polyfill ImageCapture
+    // this is in useEffect here as a node-style require
+    // so that this component is compatible with SSR
+    require('image-capture')
+  }, [])
 
-    <h1>Film</h1>
+  return (
+    <div>
+      <Head>
+        <title>Film</title>
+        <link rel='icon' href='/static/favicon.ico' />
+      </Head>
 
-    <Camera />
-  </div>
-)
+      <Nav />
 
+      <h1>Film</h1>
+
+      <LiveCode scope={scope} code={code} />
+    </div>
+  )
+}
 export default ViewfinderPage
