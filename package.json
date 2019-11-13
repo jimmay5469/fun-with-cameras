@@ -2,12 +2,10 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "clean": "npx lerna clean",
-    "dedupe": "lernaupdate --dedupe",
     "dev": "lerna run --parallel dev",
-    "lernaupdate": "lernaupdate",
     "lint": "eslint '**/*.js'",
-    "lintfix": "eslint --fix '**/*.js'"
+    "lintfix": "eslint --fix '**/*.js'",
+    "lerna-publish": "lerna publish"
   },
   "workspaces": [
     "packages/*"
