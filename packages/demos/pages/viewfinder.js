@@ -6,7 +6,7 @@ import LiveCode from '../components/live-code'
 const scope = { useState, useRef, useEffect }
 const code = `
 const Viewfinder = ({ stream }) => {
-  const video = useRef(null)
+  const video = useRef()
 
   useEffect(() => {
     video.current.autoplay = true

@@ -55,7 +55,7 @@ const Camera = () => {
       <Film
         stream={filmStream}
         filmstrip={({ images }) => {
-          const filmstrip = useRef(null)
+          const filmstrip = useRef()
 
           useEffect(() => filmstrip.current.scroll(0, 0), [images])
 

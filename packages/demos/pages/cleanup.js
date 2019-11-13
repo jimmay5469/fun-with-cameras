@@ -6,8 +6,7 @@ import LiveCode from '../components/live-code'
 const scope = { useState, useRef, useEffect }
 const code = `
 const HelloWorld = () => {
-  const [stream, setStream] = useState()
-  const video = useRef(null)
+  const video = useRef()
 
   useEffect(() => {
     navigator.mediaDevices

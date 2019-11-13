@@ -7,8 +7,8 @@ import LiveCode from '../components/live-code'
 const scope = { useState, useEffect, Lens, Viewfinder }
 const code = `
 const Shutter = ({
-  speed = 0,
   stream,
+  speed = 0,
   onStreamsChange = () => {},
   children
 }) => {
