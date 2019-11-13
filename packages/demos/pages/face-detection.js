@@ -7,42 +7,53 @@ import * as faceapi from 'face-api.js'
 const FaceDetectingViewfinder = ({ stream, className }) => {
   const video = useRef(null)
   const faces = useRef(null)
+  const [faceData, setFaceData] = useState()
 
   useEffect(() => {
+    video.current.autoplay = true
+    video.current.srcObject = stream
+  }, [stream])
+
+  useEffect(() => {
+    let keepDetecting = true
+
     const detectFaces = async () => {
-      if (stream && video.current && !video.current.paused) {
-        if (!faceapi.nets.tinyFaceDetector.params) {
-          await faceapi.nets.tinyFaceDetector.load('/static')
-        }
-        const result = await faceapi.detectAllFaces(
+      if (!keepDetecting) return
+
+      if (video.current && !video.current.paused) {
+        const faceData = await faceapi.detectAllFaces(
           video.current,
           new faceapi.TinyFaceDetectorOptions({
             inputSize: 128,
             scoreThreshold: 0.5
           })
         )
-        if (faces.current) {
-          const dimensions = faceapi.matchDimensions(
-            faces.current,
-            video.current,
-            true
-          )
-          if (dimensions.height && dimensions.width) {
-            faceapi.draw.drawDetections(
-              faces.current,
-              faceapi.resizeResults(result, dimensions)
-            )
-          }
-        }
+
+        if (keepDetecting) setFaceData(faceData)
       }
 
-      setTimeout(() => detectFaces())
+      setTimeout(detectFaces)
     }
-    detectFaces()
 
-    video.current.autoplay = true
-    video.current.srcObject = stream
-  }, [stream])
+    faceapi.nets.tinyFaceDetector.load('/static').then(detectFaces)
+
+    return () => (keepDetecting = false)
+  }, [])
+
+  useEffect(() => {
+    if (!faceData || !video.current || !faces.current) return
+
+    const dimensions = faceapi.matchDimensions(
+      faces.current,
+      video.current,
+      true
+    )
+
+    faceapi.draw.drawDetections(
+      faces.current,
+      faceapi.resizeResults(faceData, dimensions)
+    )
+  }, [faceData])
 
   return (
     <div className={`container ${className}`}>
@@ -72,23 +83,29 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
 
 const Camera = () => {
   const [stream, setStream] = useState()
+  const [lensCapOn, setLensCapOn] = useState(false)
 
   return (
     <div className='camera'>
-      <Lens
-        onStreamChange={setStream}
-        lensSelector={({ lenses, selectedLens, onSelectLens }) =>
-          lenses.map(lens => (
-            <button
-              key={lens.id}
-              disabled={lens === selectedLens}
-              onClick={() => onSelectLens(lens)}
-            >
-              {lens.name}
-            </button>
-          ))
-        }
-      />
+      <button onClick={() => setLensCapOn(!lensCapOn)}>
+        Lens Cap: {lensCapOn ? 'ON' : 'OFF'}
+      </button>
+      {!lensCapOn && (
+        <Lens
+          onStreamChange={setStream}
+          lensSelector={({ lenses, selectedLens, onSelectLens }) =>
+            lenses.map(lens => (
+              <button
+                key={lens.id}
+                disabled={lens === selectedLens}
+                onClick={() => onSelectLens(lens)}
+              >
+                {lens.name}
+              </button>
+            ))
+          }
+        />
+      )}
       <FaceDetectingViewfinder stream={stream} className='viewfinder' />
 
       <style jsx>{`
