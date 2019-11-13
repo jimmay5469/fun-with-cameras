@@ -1,9 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Lens } from '@fun-with-cameras/camera-bag'
+import * as faceapi from 'face-api.js'
 import Head from 'next/head'
 import Nav from '../components/nav'
-import * as faceapi from 'face-api.js'
+import LiveCode from '../components/live-code'
 
+const scope = {
+  useState,
+  useRef,
+  useEffect,
+  Lens,
+  faceapi
+}
+const code = `
 const FaceDetectingViewfinder = ({ stream, className }) => {
   const video = useRef(null)
   const faces = useRef(null)
@@ -21,15 +30,15 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
       if (!keepDetecting) return
 
       if (video.current && !video.current.paused) {
-        const faceData = await faceapi.detectAllFaces(
-          video.current,
-          new faceapi.TinyFaceDetectorOptions({
-            inputSize: 128,
-            scoreThreshold: 0.5
-          })
-        )
-
-        if (keepDetecting) setFaceData(faceData)
+        faceapi
+          .detectAllFaces(
+            video.current,
+            new faceapi.TinyFaceDetectorOptions({
+              inputSize: 128,
+              scoreThreshold: 0.5
+            })
+          )
+          .then(faceData => keepDetecting && setFaceData(faceData))
       }
 
       setTimeout(detectFaces)
@@ -56,13 +65,13 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
   }, [faceData])
 
   return (
-    <div className={`container ${className}`}>
+    <div className={\`container \${className}\`}>
       <div className='video'>
         <video ref={video} playsInline />
         {stream && <canvas ref={faces} className='faces' />}
       </div>
 
-      <style jsx>{`
+      <style jsx>{\`
         .container {
           display: flex;
           justify-content: center;
@@ -76,39 +85,33 @@ const FaceDetectingViewfinder = ({ stream, className }) => {
           top: 0;
           left: 0;
         }
-      `}</style>
+      \`}</style>
     </div>
   )
 }
 
 const Camera = () => {
   const [stream, setStream] = useState()
-  const [lensCapOn, setLensCapOn] = useState(false)
 
   return (
     <div className='camera'>
-      <button onClick={() => setLensCapOn(!lensCapOn)}>
-        Lens Cap: {lensCapOn ? 'ON' : 'OFF'}
-      </button>
-      {!lensCapOn && (
-        <Lens
-          onStreamChange={setStream}
-          lensSelector={({ lenses, selectedLens, onSelectLens }) =>
-            lenses.map(lens => (
-              <button
-                key={lens.id}
-                disabled={lens === selectedLens}
-                onClick={() => onSelectLens(lens)}
-              >
-                {lens.name}
-              </button>
-            ))
-          }
-        />
-      )}
+      <Lens
+        onStreamChange={setStream}
+        lensSelector={({ lenses, selectedLens, onSelectLens }) =>
+          lenses.map(lens => (
+            <button
+              key={lens.id}
+              disabled={lens === selectedLens}
+              onClick={() => onSelectLens(lens)}
+            >
+              {lens.name}
+            </button>
+          ))
+        }
+      />
       <FaceDetectingViewfinder stream={stream} className='viewfinder' />
 
-      <style jsx>{`
+      <style jsx>{\`
         .camera {
           display: flex;
           flex-direction: column;
@@ -116,10 +119,13 @@ const Camera = () => {
         .camera :global(.viewfinder) {
           background-color: black;
         }
-      `}</style>
+      \`}</style>
     </div>
   )
 }
+
+render(<Camera />)
+`
 
 const FaceDetectionPage = () => (
   <div>
@@ -132,7 +138,7 @@ const FaceDetectionPage = () => (
 
     <h1>Face Detection</h1>
 
-    <Camera />
+    <LiveCode scope={scope} code={code} />
   </div>
 )
 
